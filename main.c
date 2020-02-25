@@ -13,31 +13,19 @@ int main()
     int year = 0;
     int month = 0;
     int day = 0;
-    int i = 0;
 
-    // Gebe ein gültiges Jahr ein
-    do {
-        printf("Please enter a year:\n");
-        scanf("%d", &year);
-    }
-    while(!_is_year_valid(year));
+    printf("Please enter a year:\n");
+    scanf("%d", &year);
+    printf("Please enter a month:\n");
+    scanf("%d", &month);
+    printf("Please enter a day\n");
+    scanf("%d", &day);
 
-    //Gebe ein gültigen Monat ein
-    do
-    {
-        printf("Please enter a month:\n");
-        scanf("%d", &month);
-    } while(!(0 < month && month <= 12));
-
-    //Gebe ein gültigen Tag ein
-    do
-    {
-        printf("Please enter a day\n");
-        scanf("%d", &day);
-    } while(!(day > 0 && day <= get_days_for_month(month, year)));
+    input_date(&day, &month, &year);
 
     int amountOfDays = day_of_the_year(day, month, year);
-    //Ausgabe
+
+    // Ausgabe
     printf("Day of year: %d", amountOfDays);
     return 0;
 }

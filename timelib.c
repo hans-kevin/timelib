@@ -11,6 +11,28 @@ int day_of_the_year(int day, int month, int year)
     return amountOfDays;
 }
 
+void input_date(int *day, int *month, int *year)
+{
+
+    int dayTemp = *day;
+    int monthTemp = *month;
+    int yearTemp = *year;
+
+    while(exists_date(dayTemp, monthTemp, yearTemp) == 0)
+    {
+        printf("Please enter a year:\n");
+        scanf("%d", &yearTemp);
+        printf("Please enter a month:\n");
+        scanf("%d", &monthTemp);
+        printf("Please enter a day\n");
+        scanf("%d", &dayTemp);
+    }
+
+    *day = dayTemp;
+    *month = monthTemp;
+    *year = yearTemp;
+}
+
 int is_leapyear(int year)
 {
     if(!_is_year_valid(year))
@@ -37,9 +59,9 @@ int get_days_for_month(int month, int year)
 
 int exists_date(int day, int month, int year)
 {
-    if(!_is_year_valid(year)) { return 0;}
+    if(_is_year_valid(year) == 0) { return 0;}
     if(month < 1 || month > 12) {return 0;}
-    if(get_days_for_month(month, year) > day || day < 1) {return 0;}
+    if(day < 1 || day > get_days_for_month(month, year)) {return 0;}
     return 1;
 }
 
