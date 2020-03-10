@@ -1,11 +1,18 @@
 #ifndef TIMELIB_H_INCLUDED
 #define TIMELIB_H_INCLUDED
 
-int day_of_the_year(int day, int month, int year);
-void input_date(int *day, int *month, int *year);
+struct date
+{
+    int year;
+    int month;
+    int day;
+};
+
+int day_of_the_year(struct date input_date);
+struct date InputDate();
 int is_leapyear(int year);
-int get_days_for_month(int month, int year);
-int exists_date(int day, int month, int year);
+int get_days_for_month(struct date input_date);
+int exists_date(struct date input_date);
 int _is_year_valid(int year);
 
 

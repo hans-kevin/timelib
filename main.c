@@ -10,20 +10,10 @@ Programm zur Auswertung des Tag des Jahres von einem vorgegebenen Datum
 
 int main()
 {
-    int year = 0;
-    int month = 0;
-    int day = 0;
+    struct date input_date;
+    input_date = InputDate();
 
-    printf("Please enter a year:\n");
-    scanf("%d", &year);
-    printf("Please enter a month:\n");
-    scanf("%d", &month);
-    printf("Please enter a day\n");
-    scanf("%d", &day);
-
-    input_date(&day, &month, &year);
-
-    int amountOfDays = day_of_the_year(day, month, year);
+    int amountOfDays = day_of_the_year(input_date);
 
     // Ausgabe
     printf("Day of year: %d", amountOfDays);

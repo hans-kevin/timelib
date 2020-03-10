@@ -1,36 +1,40 @@
-int day_of_the_year(int day, int month, int year)
+#include "timelib.h"
+int day_of_the_year(struct date input_date)
 {
     //Errechne den Tag des Jahres. Addiere die vorherigen Tage
     int amountOfDays = 0;
+    struct date currentDate;
+    currentDate.day = input_date.day;
+    currentDate.year = input_date.year;
+//    input_date.day = currentDate.day;
+//    input_date.year = currentDate.year;
+    currentDate.month = 0;
     int i = 0;
-    for(i = 0; i < month - 1; i++)
+    for(i = 0; i < input_date.month - 1; i++)
     {
-        amountOfDays += get_days_for_month(i + 1, year);
+
+        currentDate.month = i + 1;
+        amountOfDays += get_days_for_month(currentDate);
     }
-    amountOfDays += day;
+    amountOfDays += input_date.day;
     return amountOfDays;
 }
 
-void input_date(int *day, int *month, int *year)
+struct date InputDate()
 {
-
-    int dayTemp = *day;
-    int monthTemp = *month;
-    int yearTemp = *year;
-
-    while(exists_date(dayTemp, monthTemp, yearTemp) == 0)
+    struct date input_date;
+    do
     {
         printf("Please enter a year:\n");
-        scanf("%d", &yearTemp);
+        scanf("%d", &input_date.year);
         printf("Please enter a month:\n");
-        scanf("%d", &monthTemp);
+        scanf("%d", &input_date.month);
         printf("Please enter a day\n");
-        scanf("%d", &dayTemp);
+        scanf("%d", &input_date.day);
     }
+    while(exists_date(input_date) == 0);
 
-    *day = dayTemp;
-    *month = monthTemp;
-    *year = yearTemp;
+    return input_date;
 }
 
 int is_leapyear(int year)
@@ -42,26 +46,26 @@ int is_leapyear(int year)
     return ((year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0));
 }
 
-int get_days_for_month(int month, int year)
+int get_days_for_month(struct date input_date)
 {
     int days_in_months[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    if(is_leapyear(year))
+    if(is_leapyear(input_date.year))
     {
         days_in_months[1] = 29;
     }
-    else if(is_leapyear(year))
+    else if(is_leapyear(input_date.year))
     {
         days_in_months[1] = 28;
     }
-    return days_in_months[month -1];
+    return days_in_months[input_date.month -1];
 }
 
-int exists_date(int day, int month, int year)
+int exists_date(struct date input_date)
 {
-    if(_is_year_valid(year) == 0) { return 0;}
-    if(month < 1 || month > 12) {return 0;}
-    if(day < 1 || day > get_days_for_month(month, year)) {return 0;}
+    if(_is_year_valid(input_date.year) == 0) { return 0;}
+    if(input_date.month < 1 || input_date.month > 12) {return 0;}
+    if(input_date.day < 1 || input_date.day > get_days_for_month(input_date)) {return 0;}
     return 1;
 }
 
